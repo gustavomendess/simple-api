@@ -1,0 +1,36 @@
+version: '3'
+services:
+  php:
+    image: php:7.2-apache
+    container_name: php-projeto-11
+    links:
+      - mysql
+    ports:
+      - "80:8888"
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+
+  mysql:
+    container_name: mysql-projeto-11
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: 'login'
+      MYSQL_USER: 'root'
+      MYSQL_PASSWORD: '12345'
+      MYSQL_ROOT_PASSWORD: '12345'
+      MYSQL_DIRECTORY: "foo"
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql:/var/lib/mysql/
+
+  redis:
+    container_name: redis-projeto
+    image: redis
+    restart: always
+    ports:
+      - "6379:6379"
+
+volumes:
+  mysql:
